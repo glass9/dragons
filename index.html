@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dragons</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+
+		input[type=range] {
+		-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+		width: 100%; /* Specific width is required for Firefox. */
+		background: transparent; /* Otherwise white in Chrome */
+		}
+
+		input[type=range]::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		}
+
+		input[type=range]:focus {
+		outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+		}
+
+		input[type=range]::-ms-track {
+		width: 100%;
+		cursor: pointer;
+
+		/* Hides the slider so custom styles can be added */
+		background: transparent; 
+		border-color: transparent;
+		color: transparent;
+		}
+
+
+		input[type=range]::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 8vh;
+			height: 8vh;
+			border-radius: 100%;
+			background: #c48517;
+			cursor: pointer;
+			margin-top: 0vh; /* height of the thumb minus the height of the track divided by 2 */
+			box-shadow:  0.5vh -0.5vh 2vh 0vh #e09c25,-0.5vh 0.5vh 2vh 0vh #634107;
+		}
+
+		input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8vh;
+  cursor: pointer;
+  box-shadow: inset -0.5vh 0.5vh 2vh 0vh #634107, inset 0.5vh -0.5vh 2vh 1vh #e09c25;
+  background: #c48517;
+  border-radius: 100vh;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+}
+
+
+
+
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			display: grid;
+			grid-template-areas:	"lever-module	dial-module"
+									"lever-module	button-module";
+			grid-template-rows: 1fr 2fr;
+			grid-template-columns: 1fr 2fr;
+		}
+		body>div{
+			background-color:#ff0059;
+			min-width:10px;
+			min-height:10px;
+		}
+
+		#lever-module{
+			background-color: #c48517;
+			grid-area: lever-module;
+			display: grid;
+			grid-template-areas: "lever-labels lever";
+			grid-template-columns: 4fr 5fr;
+		}
+		#dial-module{
+			grid-area: dial-module;
+			display: grid;
+		}
+		#button-module{
+			grid-area: button-module;
+			display: grid;
+		}
+		#lever-labels{
+			display: grid;
+			position: relative;
+		}
+
+		#squares{
+			align-self: start;
+			position: absolute;
+			width: 100%;
+			top:5vh;
+		}
+
+		#squares>.content{
+			grid-template-rows: repeat(3, 1fr);
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		#squares>.content>div{
+			margin:0.3vh;
+			grid-column: 2 / 2;
+			box-shadow: inset 0.35vh 0.35vh 1vh 0vh #634107, inset -0.1vh -0.1vh 1.5vh 0.1vh #eba936;
+			background: #c48517;
+  			border-radius: 1vh;
+		}
+
+
+		#shield{
+			align-self: end;
+			position: absolute;
+			width: 100%;
+			bottom:5vh;
+		}
+
+
+		.square{
+			position: relative;
+		}
+		.square:after{
+			content: "";
+			display: block;
+			padding-bottom: 100%;
+		}
+
+
+
+
+		#lever{
+			position: relative;
+			display: grid;
+		}
+
+		#lever>input{
+			display: block;
+			align-self: center;
+			justify-self: center;
+			position: absolute;
+			left:50%;
+			top:50%;
+			width: 80vh;
+			height: 10px;
+			margin-top:-5px;
+			margin-left:-40vh;
+			transform: rotate(-90deg);
+		}
+
+
+
+
+		.content{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			display: grid;
+		}
+
+
+		.shield-shape {
+			justify-self: center;
+			align-self: center;
+			width: 70%;
+			height: 70%;
+			border-radius: 50% 50% 50% 50% / 10% 10% 88% 88%;
+			background-clip: content-box; padding: 1px;
+			box-shadow: inset 0.35vh 0.35vh 1vh 0vh #634107, inset -0.1vh -0.1vh 1.5vh 0.1vh #eba936;
+			background: #c48517;
+		}
+
+	</style>
+</head>
+<body>
+		<div id="lever-module">
+			<div id="lever-labels">
+				<div id="squares" class="square">
+					<div class="content">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+				<div id="shield" class="square">
+					<div class="content">
+						<div class="shield-shape"></div>
+					</div>
+				</div>
+			</div>
+			<div id="lever">
+					<input type="range" name="points" onchange="filterme(this.value);" min="1" step="1" id="toggle" max="3" value="2">
+			</div>
+		</div>
+		<div id="dial-module"></div>
+		<div id="button-module"></div>
+</body>
+</html>
